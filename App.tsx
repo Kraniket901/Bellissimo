@@ -13,6 +13,10 @@ import {NavigationContainer} from '@react-navigation/native';
 import Toast from 'react-native-toast-message'
 import { useAuth } from './src/zustand/useAuth';
 import ProductMain from './src/screens/Product/ProductMain';
+import FindProduct from './src/screens/Product/FindProduct';
+import Filter from './src/screens/Product/Filter';
+import OrderAccepted from './src/screens/Product/OrderAccepted';
+import AccountSidebar from './src/screens/Profile/AccountSidebar';
 
 const Stack = createStackNavigator();
 
@@ -51,6 +55,18 @@ const App = () => {
           <Stack.Screen options={{
             headerShown: false,
           }} name="Signup" component={Signup} />
+           <Stack.Screen options={{
+            headerShown: false,
+          }} name="Filter" component={Filter} />
+           <Stack.Screen options={{
+            headerShown: false,
+          }} name="FindProduct" component={FindProduct} />
+           <Stack.Screen options={{
+            headerShown: false,
+          }} name="OrderAccepted" component={OrderAccepted} />
+           <Stack.Screen options={{
+            headerShown: false,
+          }} name="AccountSidebar" component={AccountSidebar} />
         </Stack.Navigator>
       </NavigationContainer>
       <Toast />
