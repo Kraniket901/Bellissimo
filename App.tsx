@@ -21,6 +21,7 @@ import ProductCard4 from './src/screens/Home/components/ProductCard4';
 import Checkout from './src/screens/Cart/Checkout';
 import ProductCategories from './src/screens/Product/ProductCategories';
 import BottomSheetComp from './src/screens/Cart/components/BottomSheetComp';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const Stack = createStackNavigator();
 
@@ -33,9 +34,10 @@ const App = () => {
   }, [token]);
 
   return (
+    <SafeAreaProvider>
     <GestureHandlerRootView style={{flex: 1}}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Checkout">
+        <Stack.Navigator initialRouteName="ProductCategories">
           <Stack.Screen name="Main" options={{
             headerShown: false,
           }} component={Main} />
@@ -84,6 +86,7 @@ const App = () => {
       </NavigationContainer>
       <Toast />
     </GestureHandlerRootView>
+    </SafeAreaProvider>
   );
 };
 

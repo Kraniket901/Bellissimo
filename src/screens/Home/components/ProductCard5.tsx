@@ -1,5 +1,5 @@
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
-import React from 'react';
 import { colors } from '../../../constants';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
@@ -13,6 +13,12 @@ interface ProductCardProps {
 }
 
 const ProductCard5: React.FC<ProductCardProps> = ({ item }) => {
+  const [isHeartFilled, setIsHeartFilled] = useState(false);
+
+  const toggleHeartColor = () => {
+    setIsHeartFilled(!isHeartFilled);
+  };
+
   return (
     <View
       style={{
@@ -20,18 +26,11 @@ const ProductCard5: React.FC<ProductCardProps> = ({ item }) => {
         marginHorizontal: 15,
         flexDirection: 'column',
         margin: 10,
-        position:'relative',
+        position: 'relative',
       }}>
-        <AntDesign style={{
-              fontSize: 18,
-              fontWeight:'900',
-              color: colors.secondary,
-              position:'absolute',
-              top:5,
-              right:5,
-              zIndex:1
-            }}
-            name="hearto"/>
+      <TouchableOpacity onPress={toggleHeartColor} style={{ position: 'absolute', top: 5, right: 5, zIndex: 1 }}>
+        <AntDesign name={isHeartFilled ? "heart" : "hearto"} style={{ fontSize: 18, fontWeight: '900', color: isHeartFilled ? 'red' : colors.secondary }} />
+      </TouchableOpacity>
       <Image style={{ width: '100%', height: 120 }} source={require('../../../../assets/backgrounds/2.jpg')} />
       <Text
         style={{
