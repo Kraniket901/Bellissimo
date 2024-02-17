@@ -7,7 +7,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
-import SideItem from './components/SideItem';
+import SideItem from './component/SideItem';
 
 const AccountSidebar = () => {
   const navigation = useNavigation<any>();

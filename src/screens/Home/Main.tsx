@@ -34,6 +34,7 @@ import ShowcaseCard1 from './components/ShowcaseCard1';
 import AdSmall from './components/AdSmall';
 import ShowcaseCard2 from './components/ShowcaseCard2';
 import ShowcaseCard3 from './components/ShowcaseCard3';
+import ShowcaseCard4 from './components/ShowcaseCard4';
 
 const wordsArray = ['Search', 'Sanitery Pad', 'Animated', 'React Native'];
 
@@ -116,6 +117,13 @@ const Main = () => {
                 background="https://gkh-images.s3.ap-south-1.amazonaws.com/2.jpg"
                 title="Featured Products"
                 subtitle="Top Picks: Unveiling Our Finest Selections"
+                data={Array.from({length: 9})}
+                titleImage="https://cdn3d.iconscout.com/3d/premium/thumb/shopping-sale-10241364-8330401.png"
+              />
+              <ShowcaseCard4
+                background="https://gkh-images.s3.ap-south-1.amazonaws.com/2.jpg"
+                title="Newly Launched"
+                subtitle="Explore all of the freshly added items"
                 data={Array.from({length: 9})}
                 titleImage="https://cdn3d.iconscout.com/3d/premium/thumb/shopping-sale-10241364-8330401.png"
               />
