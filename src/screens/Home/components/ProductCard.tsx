@@ -4,14 +4,17 @@ import {colors} from '../../../constants';
 import ButtonSM from '../../../common/Button/ButtonSM';
 import EIcon from 'react-native-vector-icons/Entypo';
 import AntDIcon from 'react-native-vector-icons/AntDesign';
+import {Product} from '../../../zustand/useHome';
 
-const ProductCard = () => {
+type ProductCardProps = Product;
+
+const ProductCard: React.FC<ProductCardProps> = product => {
   return (
     <View
       style={{
         zIndex: 1,
         flex: 1,
-        padding: 8,
+        padding: 6,
         width: 160,
         height: '100%',
         borderRadius: 18,
@@ -36,47 +39,15 @@ const ProductCard = () => {
             padding: 5,
             elevation: 5,
           }}>
-          <View
-            style={{
-              position: 'absolute',
-              top: 10,
-              left: 10,
-              width: 55,
-              height: 25,
-              backgroundColor: colors.secondary,
-              zIndex: 1,
-              borderRadius: 18,
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              gap: 5,
-              paddingHorizontal: 5,
-            }}>
-            <AntDIcon
-              name="star"
-              style={{
-                fontSize: 16,
-                color: colors.textColor,
-              }}
-            />
-            <Text
-              style={{
-                fontSize: 14,
-                color: colors.textColor,
-                fontFamily: 'Gilroy-Medium',
-              }}>
-              4.2
-            </Text>
-          </View>
           <Image
             style={{
               width: '100%',
               height: '60%',
               borderRadius: 18,
-              resizeMode: 'cover',
+              resizeMode: 'contain',
             }}
             source={{
-              uri: 'https://bellissimo.co.in/wp-content/uploads/2024/01/WhatsApp-Image-2024-01-18-at-10.55.44-AM.jpeg',
+              uri: product.images[0],
             }}
           />
           <View
@@ -92,7 +63,9 @@ const ProductCard = () => {
                 color: colors.textColor,
                 fontFamily: 'Gilroy-Semibold',
               }}>
-              Bellissimo Sandal Hand Wash
+              {product.name.length > 30
+                ? product.name.slice(0, 25) + '...'
+                : product.name}
             </Text>
             <View
               style={{
@@ -130,7 +103,10 @@ const ProductCard = () => {
                       textAlign: 'center',
                       fontFamily: 'Gilroy-Bold',
                     }}>
-                    ₹120
+                    ₹
+                    {product?.discount?.newAmount
+                      ? product?.discount?.newAmount
+                      : product?.price}
                   </Text>
                   <View
                     style={{
@@ -146,7 +122,7 @@ const ProductCard = () => {
                         color: colors.textColor,
                         fontFamily: 'Gilroy-Medium',
                       }}>
-                      15%
+                      {product?.discount?.percentage}%
                     </Text>
                     <Text
                       style={{
@@ -156,7 +132,7 @@ const ProductCard = () => {
                         textDecorationLine: 'line-through',
                         fontFamily: 'Gilroy-Bold',
                       }}>
-                      ₹150
+                      ₹{product?.price}
                     </Text>
                   </View>
                 </View>
@@ -182,7 +158,7 @@ const ProductCard = () => {
               color: colors.textColor,
               fontFamily: 'Gilroy-Bold',
             }}>
-            Add To Cart
+            Add to Cart
           </Text>
           <AntDIcon
             name="shoppingcart"

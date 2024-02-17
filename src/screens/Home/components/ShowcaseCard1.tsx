@@ -3,13 +3,14 @@ import React from 'react';
 import ProductCard from './ProductCard';
 import {colors} from '../../../constants';
 import {FlatList} from 'react-native-gesture-handler';
+import { Product } from '../../../zustand/useHome';
 
 type ShowcaseCard1Props = {
   title: string;
   subtitle: string;
   titleImage: string;
   background: string;
-  data: any[];
+  data: Product[];
 };
 
 const ShowcaseCard1: React.FC<ShowcaseCard1Props> = ({
@@ -96,8 +97,8 @@ const ShowcaseCard1: React.FC<ShowcaseCard1Props> = ({
           horizontal={true}
           data={data}
           showsHorizontalScrollIndicator={false}
-          renderItem={() => {
-            return <ProductCard />;
+          renderItem={({item}) => {
+            return <ProductCard {...item} />;
           }}
         />
       </View>

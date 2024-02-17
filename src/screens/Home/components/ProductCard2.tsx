@@ -1,14 +1,18 @@
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
 import {colors} from '../../../constants';
 import AntDIcon from 'react-native-vector-icons/AntDesign';
-const ProductCard2 = () => {
+import {Product} from '../../../zustand/useHome';
+
+type ProductCard2Props = Product;
+
+const ProductCard2: React.FC<ProductCard2Props> = product => {
   return (
     <View
       style={{
         width: 120,
-        height: '100%',
         flexDirection: 'column',
+        marginHorizontal: 5,
       }}>
       <View
         style={{
@@ -16,16 +20,31 @@ const ProductCard2 = () => {
           width: '100%',
           height: 120,
           borderRadius: 18,
-        }}
-      />
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <Image
+          source={{
+            uri: product?.images[0],
+          }}
+          style={{
+            width: 100,
+            height: 100,
+            resizeMode: 'contain',
+            borderRadius: 18 - 6,
+          }}
+        />
+      </View>
       <Text
         style={{
-          fontSize: 16,
+          fontSize: 12,
           color: colors.textColor,
           width: '100%',
           fontFamily: 'Gilroy-Bold',
         }}>
-        Shampoo & Conditioner
+        {product?.name.length > 20
+          ? product?.name.slice(0, 30) + '...'
+          : product?.name}
       </Text>
       <View
         style={{
@@ -40,7 +59,10 @@ const ProductCard2 = () => {
             textAlign: 'center',
             fontFamily: 'Gilroy-Bold',
           }}>
-          ₹120
+          ₹
+          {product?.discount?.newAmount
+            ? product?.discount?.newAmount
+            : product?.price}
         </Text>
         <TouchableOpacity
           style={{
