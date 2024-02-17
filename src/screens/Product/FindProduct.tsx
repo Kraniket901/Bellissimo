@@ -274,7 +274,7 @@ const FindProduct = () => {
         }}>
         <Image
           style={{width: 50, height: 50}}
-          source={require('../../../assets/gift.png')}
+          source={require('../../../assets/backgrounds/2.jpg')}
         />
         <View>
           <Text

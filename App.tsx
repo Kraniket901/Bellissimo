@@ -17,6 +17,10 @@ import FindProduct from './src/screens/Product/FindProduct';
 import Filter from './src/screens/Product/Filter';
 import OrderAccepted from './src/screens/Product/OrderAccepted';
 import AccountSidebar from './src/screens/Profile/AccountSidebar';
+import ProductCard4 from './src/screens/Home/components/ProductCard4';
+import Checkout from './src/screens/Cart/Checkout';
+import ProductCategories from './src/screens/Product/ProductCategories';
+import BottomSheetComp from './src/screens/Cart/components/BottomSheetComp';
 
 const Stack = createStackNavigator();
 
@@ -31,7 +35,7 @@ const App = () => {
   return (
     <GestureHandlerRootView style={{flex: 1}}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Main">
+        <Stack.Navigator initialRouteName="Checkout">
           <Stack.Screen name="Main" options={{
             headerShown: false,
           }} component={Main} />
@@ -67,6 +71,15 @@ const App = () => {
            <Stack.Screen options={{
             headerShown: false,
           }} name="AccountSidebar" component={AccountSidebar} />
+          <Stack.Screen options={{
+            headerShown: false,
+          }} name="Checkout" component={Checkout} />
+           <Stack.Screen options={{
+            headerShown: false,
+          }} name="ProductCategories" component={ProductCategories} />
+          <Stack.Screen options={{
+            headerShown: false,
+          }} name="BottomSheetComp" component={BottomSheetComp} />
         </Stack.Navigator>
       </NavigationContainer>
       <Toast />
