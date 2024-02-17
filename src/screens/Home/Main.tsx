@@ -35,6 +35,7 @@ import ShowcaseCard2 from './components/ShowcaseCard2';
 import ShowcaseCard3 from './components/ShowcaseCard3';
 import Carousel from './components/Carousel';
 import {useHome} from '../../zustand/useHome';
+import ShowcaseCard4 from './components/ShowcaseCard4';
 
 const Main = () => {
   const width = Dimensions.get('window').width;
@@ -80,6 +81,13 @@ const Main = () => {
                 title="Featured Products"
                 subtitle="Top Picks: Unveiling Our Finest Selections"
                 data={products}
+                titleImage="https://cdn3d.iconscout.com/3d/premium/thumb/shopping-sale-10241364-8330401.png"
+              />
+              <ShowcaseCard4
+                background="https://gkh-images.s3.ap-south-1.amazonaws.com/2.jpg"
+                title="Newly Launched"
+                subtitle="Explore all of the freshly added items"
+                data={Array.from({length: 9})}
                 titleImage="https://cdn3d.iconscout.com/3d/premium/thumb/shopping-sale-10241364-8330401.png"
               />
               <AdSmall />
