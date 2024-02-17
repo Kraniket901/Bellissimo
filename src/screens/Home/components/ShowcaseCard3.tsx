@@ -1,20 +1,21 @@
-import {View, Text, Image, FlatList} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import React from 'react';
 import {colors} from '../../../constants';
 import ProductCard3 from './ProductCard3';
-
+import {Product} from '../../../zustand/useHome';
+import {FlashList} from '@shopify/flash-list';
 type ShowcaseCard3Props = {
   title: string;
   titleImage: string;
   subtitle: string;
-  data: any[];
+  data: Product[];
 };
 
 const ShowcaseCard3: React.FC<ShowcaseCard3Props> = ({
   subtitle,
   title,
   titleImage,
-  data
+  data,
 }) => {
   return (
     <View
@@ -22,7 +23,6 @@ const ShowcaseCard3: React.FC<ShowcaseCard3Props> = ({
         borderRadius: 20,
         marginBottom: 10,
         flexDirection: 'column',
-        maxWidth: 400,
       }}>
       <View style={{flexDirection: 'row', width: '100%'}}>
         <View style={{flexDirection: 'column'}}>
@@ -65,25 +65,19 @@ const ShowcaseCard3: React.FC<ShowcaseCard3Props> = ({
       </View>
       <View
         style={{
-          flex:1,
+          flex: 1,
           width: '100%',
-          height: 100,
           borderRadius: 18,
         }}>
-        <FlatList
-          contentContainerStyle={{
-            gap: 10,
-          }}
+        <FlashList
           keyExtractor={(_, i) => `${i}`}
-          style={{
-            maxWidth: 400,
-          }}
           horizontal={true}
           data={data}
           showsHorizontalScrollIndicator={false}
-          renderItem={() => {
-            return <ProductCard3 />;
+          renderItem={({item}) => {
+            return <ProductCard3 {...item} />;
           }}
+          estimatedItemSize={275}
         />
       </View>
     </View>

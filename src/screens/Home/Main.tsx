@@ -12,7 +12,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import AntDIcon from 'react-native-vector-icons/AntDesign';
 import FIcon from 'react-native-vector-icons/Feather';
 import TextMD from '../../common/Text/TextMD';
-import Carousel from 'react-native-reanimated-carousel';
 import EIcon from 'react-native-vector-icons/Entypo';
 import Animated, {
   Easing,
@@ -34,40 +33,13 @@ import ShowcaseCard1 from './components/ShowcaseCard1';
 import AdSmall from './components/AdSmall';
 import ShowcaseCard2 from './components/ShowcaseCard2';
 import ShowcaseCard3 from './components/ShowcaseCard3';
+import Carousel from './components/Carousel';
+import {useHome} from '../../zustand/useHome';
 import ShowcaseCard4 from './components/ShowcaseCard4';
-
-const wordsArray = ['Search', 'Sanitery Pad', 'Animated', 'React Native'];
 
 const Main = () => {
   const width = Dimensions.get('window').width;
-  const scrollY = useSharedValue(0);
-  const handleScroll = (event: any) => {
-    scrollY.value = event.nativeEvent.contentOffset.y;
-  };
-
-  const headerOpacity = scrollY.value < 50 ? 1 : 0;
-
-  const searchTranslateY = scrollY.value > 120 ? -120 : 0;
-  const animatedHeaderStyle = useAnimatedStyle(() => {
-    return {
-      opacity: withSpring(headerOpacity),
-      transform: [{translateY: withSpring(-50 * headerOpacity)}],
-    };
-  });
-  const animatedSearchStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{translateY: withSpring(searchTranslateY)}],
-    };
-  });
-
-  const [scrollEnabled, setScrollEnabled] = useState(true);
-  useEffect(() => {
-    StatusBar.setBackgroundColor(colors.primary);
-  }, []);
-
-  //   const animatedOpacity = useSharedValue(0);
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-
+  const {products} = useHome();
   return (
     <View
       style={{
@@ -76,13 +48,12 @@ const Main = () => {
       }}>
       <Header />
       <FlatList
-        onScroll={handleScroll}
         contentContainerStyle={{
           width: '100%',
           padding: 10,
           paddingBottom: 150,
-          justifyContent: 'flex-start',
-          alignItems: 'flex-start',
+          // justifyContent: 'flex-start',
+          // alignItems: 'flex-start',
         }}
         ListHeaderComponentStyle={{
           width: '100%',
@@ -90,34 +61,26 @@ const Main = () => {
         }}
         columnWrapperStyle={{
           width: '100%',
-          justifyContent: 'space-between',
+          // justifyContent: 'space-between',
           alignItems: 'center',
           marginBottom: 10,
         }}
         ListHeaderComponent={() => {
           return (
             <>
-              <View
-                style={{
-                  width: '100%',
-                  height: 180,
-                  backgroundColor: colors.secondary,
-                  borderRadius: 20,
-                  borderColor: colors.primary,
-                  borderWidth: 2,
-                }}></View>
+              <Carousel />
               <Category />
               <ShowcaseCard3
                 title="Most Bought Products"
                 subtitle="Customers are loving these products"
-                data={Array.from({length: 9})}
+                data={products}
                 titleImage="https://cdn3d.iconscout.com/3d/premium/thumb/fire-6400085-5285088.png?f=png"
               />
               <ShowcaseCard1
                 background="https://gkh-images.s3.ap-south-1.amazonaws.com/2.jpg"
                 title="Featured Products"
                 subtitle="Top Picks: Unveiling Our Finest Selections"
-                data={Array.from({length: 9})}
+                data={products}
                 titleImage="https://cdn3d.iconscout.com/3d/premium/thumb/shopping-sale-10241364-8330401.png"
               />
               <ShowcaseCard4
@@ -131,19 +94,19 @@ const Main = () => {
               <ShowcaseCard2
                 title="Newly added Products"
                 subtitle="Check out our latest additions to the store"
-                data={Array.from({length: 9})}
+                data={products}
                 titleImage="https://cdnl.iconscout.com/lottie/premium/thumb/new-7037402-5728742.gif"
               />
               <ShowcaseCard2
                 title="Personal Care Products"
                 subtitle="Shop from our wide range of personal care products"
-                data={Array.from({length: 9})}
+                data={products}
                 titleImage="https://cdn3d.iconscout.com/3d/premium/thumb/hairdryer-8909422-7250484.png?f=png"
               />
               <ShowcaseCard1
                 title="Most Bought Products"
                 subtitle="Customers are loving these products"
-                data={Array.from({length: 9})}
+                data={products}
                 titleImage="https://cdn3d.iconscout.com/3d/premium/thumb/fire-6400085-5285088.png?f=png"
                 background="https://gkh-images.s3.ap-south-1.amazonaws.com/4.jpg"
               />
@@ -168,10 +131,10 @@ const Main = () => {
             </>
           );
         }}
-        renderItem={() => {
-          return <ProductCard2 />;
+        renderItem={({item}) => {
+          return <ProductCard2 {...item} />;
         }}
-        data={Array.from({length: 9})}
+        data={products}
         keyExtractor={(item, index) => `${index}`}
         numColumns={3}
       />

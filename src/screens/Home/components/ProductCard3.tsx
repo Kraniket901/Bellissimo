@@ -1,8 +1,12 @@
-import {View, Text, TouchableOpacity, Dimensions} from 'react-native';
+import {View, Text, TouchableOpacity, Dimensions, Image} from 'react-native';
 import React from 'react';
 import {colors} from '../../../constants';
 import EIcon from 'react-native-vector-icons/Entypo';
-const ProductCard3 = () => {
+import {Product} from '../../../zustand/useHome';
+
+type ProductCard3Props = Product;
+
+const ProductCard3: React.FC<ProductCard3Props> = product => {
   return (
     <View
       style={{
@@ -15,8 +19,19 @@ const ProductCard3 = () => {
           height: '100%',
           width: 100,
           borderRadius: 18,
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
-        />
+      >
+        <Image source={{
+          uri: product.images[0],
+        }} style={{
+          width: 95,
+          height: 95,
+          resizeMode: 'contain',
+          borderRadius: 18 -6,
+        }} />
+      </View>
       <View
         style={{
           maxWidth: 200,
@@ -27,13 +42,13 @@ const ProductCard3 = () => {
         }}>
         <Text
           style={{
-            fontSize: 16,
+            fontSize: 12,
             color: colors.textColor,
             width: '100%',
             marginBottom: 2,
             fontFamily: 'Gilroy-Bold',
           }}>
-          Bellissimo Disinfectant Bathroom Cleaner
+          {product.name}
         </Text>
         <Text
           style={{
@@ -43,7 +58,7 @@ const ProductCard3 = () => {
             marginBottom: 2,
             fontFamily: 'Gilroy-Medium',
           }}>
-          500ml
+          {product.size.amount} {product.size.unit}
         </Text>
         <View
           style={{
@@ -80,7 +95,7 @@ const ProductCard3 = () => {
                   textAlign: 'center',
                   fontFamily: 'Gilroy-Bold',
                 }}>
-                ₹120
+                ₹{product?.discount?.newAmount ?? product.price}
               </Text>
               <View
                 style={{
@@ -97,7 +112,7 @@ const ProductCard3 = () => {
                     textAlign: 'center',
                     fontFamily: 'Gilroy-Medium',
                   }}>
-                  15%
+                  {product?.discount?.percentage}%
                 </Text>
                 <Text
                   style={{
@@ -107,7 +122,7 @@ const ProductCard3 = () => {
                     textDecorationLine: 'line-through',
                     fontFamily: 'Gilroy-Bold',
                   }}>
-                  ₹150
+                  ₹{product?.price}
                 </Text>
               </View>
             </View>

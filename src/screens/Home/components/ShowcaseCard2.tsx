@@ -2,12 +2,14 @@ import {View, Text, FlatList, Image} from 'react-native';
 import React from 'react';
 import ProductCard2 from './ProductCard2';
 import {colors} from '../../../constants';
+import {FlashList} from '@shopify/flash-list';
+import {Product} from '../../../zustand/useHome';
 
 type ShowcaseCard2Props = {
   title: string;
   subtitle: string;
   titleImage: string;
-  data: any[];
+  data: Product[];
 };
 
 const ShowcaseCard2: React.FC<ShowcaseCard2Props> = ({
@@ -38,6 +40,7 @@ const ShowcaseCard2: React.FC<ShowcaseCard2Props> = ({
                 color: colors.textColor,
                 marginTop: 10,
                 fontFamily: 'Gilroy-Black',
+                textAlign: 'justify',
               }}>
               {title}
             </Text>
@@ -63,19 +66,15 @@ const ShowcaseCard2: React.FC<ShowcaseCard2Props> = ({
           </Text>
         </View>
       </View>
-      <FlatList
-        style={{
-          width: '100%',
-          gap: 10,
-        }}
-        contentContainerStyle={{
-          gap: 10,
-        }}
+      <FlashList
         horizontal={true}
         data={data}
+        estimatedItemSize={119}
         keyExtractor={(item, index) => `${index}`}
-        renderItem={e => {
-          return <ProductCard2 />;
+        renderItem={({item}) => {
+          return (
+            <ProductCard2 {...item} />
+          );
         }}
       />
     </View>

@@ -272,10 +272,10 @@ const FindProduct = () => {
           flexDirection: 'row',
           padding: 20,
         }}>
-        <Image
+        {/* <Image
           style={{width: 50, height: 50}}
-          source={require('../../../assets/backgrounds/2.jpg')}
-        />
+          source={require('../../../')}
+        /> */}
         <View>
           <Text
             style={{

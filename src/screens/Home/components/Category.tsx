@@ -2,8 +2,10 @@ import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import React from 'react';
 import {colors} from '../../../constants';
 import {Image} from 'react-native';
+import {useHome} from '../../../zustand/useHome';
 
 const Category = () => {
+  const {categories} = useHome();
   return (
     <View
       style={{
@@ -52,13 +54,13 @@ const Category = () => {
         />
       </View>
       <FlatList
-        data={Array.from({length: 9})}
+        data={categories}
         keyExtractor={(_, i) => `${i}`}
         columnWrapperStyle={{
-          justifyContent: 'space-evenly',
+          justifyContent: 'space-around',
           alignItems: 'center',
         }}
-        renderItem={() => {
+        renderItem={({item: {icon, name}}) => {
           return (
             <TouchableOpacity
               style={{
@@ -69,10 +71,24 @@ const Category = () => {
                 height: 100,
                 width: 100,
                 marginBottom: 10,
-                borderRadius: 18,
-                borderWidth: 2,
-                borderColor: colors.primary,
-              }}></TouchableOpacity>
+                borderRadius: 14,
+                padding: 10,
+                elevation: 1,
+              }}>
+              <Image
+                source={{
+                  uri: icon,
+                }}
+                style={{
+                  width: 70,
+                  height: 70,
+                }}
+              />
+              <Text
+                style={{color: colors.textColor, fontFamily: 'Gilroy-Bold', fontSize:12, textAlign:'center'}}>
+                {name}
+              </Text>
+            </TouchableOpacity>
           );
         }}
         numColumns={3}
