@@ -1,4 +1,4 @@
-import { Text, View } from 'react-native'
+import { Text, TouchableHighlight, View } from 'react-native'
 import React, { Component } from 'react'
 import Feather from 'react-native-vector-icons/Feather';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -9,10 +9,17 @@ import { colors } from '../../../constants';
 type OpenItemProps = {
     title: string;
     children?: React.ReactNode;
+    onPress?: () => void;
+    isPressed?: boolean; 
   };
 
-const SideItem: React.FC<OpenItemProps> = ({title, children}) => {
+const SideItem: React.FC<OpenItemProps> = ({title, children, onPress, isPressed}) => {
     return (
+      <TouchableHighlight onPress={onPress} 
+      underlayColor={'white'}
+      style={{
+        backgroundColor: 'white',
+      }}>
         <View
       style={{
         width: '100%',
@@ -53,6 +60,7 @@ const SideItem: React.FC<OpenItemProps> = ({title, children}) => {
         <Entypo name={'chevron-right'} size={25} color={colors.tertiary} />
       </View>
     </View>
+    </TouchableHighlight>
   )
 }
 

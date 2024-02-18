@@ -40,7 +40,7 @@ const App = () => {
     <SafeAreaProvider>
     <GestureHandlerRootView style={{flex: 1}}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="ProductCategories">
+        <Stack.Navigator initialRouteName="FindProduct">
           <Stack.Screen name="Main" options={{
             headerShown: false,
           }} component={Main} />

@@ -14,9 +14,14 @@ interface ProductCardProps {
 
 const ProductCard5: React.FC<ProductCardProps> = ({ item }) => {
   const [isHeartFilled, setIsHeartFilled] = useState(false);
+  const [isButtonColored, setIsButtonColored] = useState(true);
 
   const toggleHeartColor = () => {
     setIsHeartFilled(!isHeartFilled);
+  };
+
+  const toggleButtonColor = () => {
+    setIsButtonColored(!isButtonColored);
   };
 
   return (
@@ -63,6 +68,7 @@ const ProductCard5: React.FC<ProductCardProps> = ({ item }) => {
           <Text style={{ color: colors.tertiary, fontSize: 12, textDecorationLine: 'line-through' }}>₹{item.originalPrice}</Text>
         </View>
         <TouchableOpacity
+          onPress={toggleButtonColor}
           style={{
             borderColor: colors.primary,
             borderWidth: 1,
@@ -71,13 +77,13 @@ const ProductCard5: React.FC<ProductCardProps> = ({ item }) => {
             justifyContent: 'center',
             alignItems: 'center',
             gap: 5,
+            backgroundColor: isButtonColored ? colors.primary : 'white', // Toggle background color
           }}>
           <Text
             style={{
               fontSize: 12,
-              color: 'white',
+              color: isButtonColored ? 'white' : colors.primary, // Toggle text color
               fontFamily: 'Gilroy-Bold',
-              backgroundColor: colors.primary,
               paddingHorizontal: 10,
               borderRadius: 10,
               paddingVertical: 8,

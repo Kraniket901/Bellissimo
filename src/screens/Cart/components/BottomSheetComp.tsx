@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View, Text, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import React from 'react';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {colors} from '../../../constants';
@@ -6,9 +6,11 @@ import FIcon from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import TextMD from '../../../common/Text/TextMD';
+import { TextInput } from 'react-native';
 
 const BottomSheetComp = () => {
   return (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
     <View>
       <View
         style={{
@@ -63,14 +65,18 @@ const BottomSheetComp = () => {
             color: colors.textColor,
           }}
         />
-        <View
+         <View
           style={{
             flex: 1,
             justifyContent: 'center',
             alignItems: 'flex-start',
             height: '100%',
           }}>
-          <TextMD>Search for area, street name ...</TextMD>
+          <TextInput
+            placeholder="Search for area, street name ..."
+            placeholderTextColor={colors.textColor}
+            style={{ fontSize: 16, color: colors.textColor }}
+          />
         </View>
       </View>
       <View
@@ -159,6 +165,7 @@ const BottomSheetComp = () => {
         </View>
       </View>
     </View>
+       </TouchableWithoutFeedback>
   );
 };
 
