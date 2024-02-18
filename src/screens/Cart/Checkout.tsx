@@ -7,13 +7,28 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import ShowcaseCard4 from '../Home/components/ShowcaseCard4';
 import CheckoutItem from './components/CheckoutItem';
 import { ScrollView } from 'react-native-gesture-handler';
-import BottomSheet , {BottomSheetView} from '@gorhom/bottom-sheet'
+import { BottomSheet, Button, ListItem } from '@rneui/themed';
+import { StyleSheet } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-const Checkout = () => {
-  const sheetRef = useRef<BottomSheet>(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const snapPoints = ["40%"];
+type CheckoutProps = {};
+
+const Checkout: React.FunctionComponent<CheckoutProps> = () => {
+  
+  const [isVisible, setIsVisible] = useState(false);
+  const list = [
+    { title: 'List Item 1' },
+    { title: 'List Item 2' },
+    {
+      title: 'Cancel',
+      containerStyle: { backgroundColor: 'red' },
+      titleStyle: { color: 'white' },
+      onPress: () => setIsVisible(false),
+    },
+  ];
+
   return (
+    <SafeAreaProvider>
     <ScrollView>
       <View
         style={{
@@ -158,12 +173,22 @@ const Checkout = () => {
         />
             </View>
         </View>
-        {/* <BottomSheet ref={sheetRef} snapPoints={snapPoints} enablePanDownToClose={true} onClose={()=>setIsOpen(false)}>
-        <BottomSheetView>
-          <Text>Hello</Text>
-        </BottomSheetView>
-        </BottomSheet> */}
+        <BottomSheet modalProps={{}} isVisible={isVisible}>
+      {list.map((l, i) => (
+        <ListItem
+          key={i}
+          containerStyle={l.containerStyle}
+          onPress={l.onPress}
+        >
+          <ListItem.Content>
+            <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
+          </ListItem.Content>
+        </ListItem>
+      ))}
+    </BottomSheet>
+        <Button  onPress={() => setIsVisible(true)} style={{backgroundColor:'black'}}>Click Me</Button>
     </ScrollView>
+    </SafeAreaProvider>
   );
 };
 

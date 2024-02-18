@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { colors } from '../../constants';
 import ProductCard5 from '../Home/components/ProductCard5';
 import Feather from 'react-native-vector-icons/Feather';
@@ -7,6 +7,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 type ProductCategoryItemProps = {
   value?: string;
+  onPress: () => void;
+  isSelected: boolean;
 };
 
 const ProductCategories: React.FC = () => {
@@ -17,6 +19,8 @@ const ProductCategories: React.FC = () => {
     { value: 'Exotics' },
     { value: 'Leafies & Herbs' },
     { value: 'Flowers & Leaves' },
+    { value: 'Clean Vegetables' },
+    { value: 'Clean Fruits' },
   ];
 
   const products = [
@@ -63,7 +67,14 @@ const ProductCategories: React.FC = () => {
       weight: 600
     }
   ];
-  
+
+  const [selectedItem, setSelectedItem] = useState<string | null>(
+    categoryItems.length > 0 ? categoryItems[0].value : null
+  );
+
+  const handleItemClick = (value: string) => {
+    setSelectedItem(value);
+  };
 
   return (
     <View>
@@ -76,34 +87,73 @@ const ProductCategories: React.FC = () => {
         }}>
         <Feather name="arrow-left" size={30} color={colors.tertiary} />
         <Text
-          style={{ color: colors.textColor, fontSize: 18, fontWeight: '600' }}>
-          Vegetables & Fruits
+          style={{
+            color: colors.textColor,
+            fontSize: 18,
+            fontWeight: '600',
+          }}>
+          {selectedItem || 'Vegetables & Fruits'}
         </Text>
         <View></View>
       </View>
-
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-        <View style={{ width: '30%', flexDirection: 'column' }}>
+      <View style={{ flexDirection: 'row' }}>
+        {/* Left side (30%) */}
+        <ScrollView style={{ width: '30%', marginBottom:100 }}>
           {categoryItems.map((item, index) => (
-            <ProductCategoryItem key={index} value={item.value} />
+            <ProductCategoryItem
+              key={index}
+              value={item.value}
+              onPress={() => handleItemClick(item.value)}
+              isSelected={selectedItem === item.value}
+            />
           ))}
-        </View>
+        </ScrollView>
 
-        <View style={{ width: '70%', display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-          {products.map((item, index) => (
-             <ProductCard5 key={index} item={item} />
-          ))}
-        </View>
+        {/* Right side (70%) */}
+        <ScrollView style={{ width: '70%', marginBottom:100 }}>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+            {products.map((item, index) => (
+              <ProductCard5 key={index} item={item} />
+            ))}
+          </View>
+        </ScrollView>
       </View>
     </View>
   );
-}
+};
 
-const ProductCategoryItem: React.FC<ProductCategoryItemProps> = (props) => (
-  <View style={{ padding: 10 }}>
-    <Image style={{ width: '80%', height: 80, alignSelf: 'center', borderRadius:15 }} source={require('../../../assets/backgrounds/2.jpg')} />
-    <Text style={{ color: colors.textColor, textAlign: 'center', marginVertical: 5 }}>{props.value}</Text>
-  </View>
+const ProductCategoryItem: React.FC<ProductCategoryItemProps> = ({
+  value,
+  onPress,
+  isSelected,
+}) => (
+  <TouchableOpacity onPress={onPress}>
+    <View
+      style={{
+        padding: 10,
+        backgroundColor: isSelected ? 'lightgray' : 'transparent',
+        borderRightWidth: isSelected ? 4 : 0,
+        borderRightColor: colors.primary
+      }}>
+      <Image
+        style={{
+          width: '80%',
+          height: 80,
+          alignSelf: 'center',
+          borderRadius: 15,
+        }}
+        source={require('../../../assets/backgrounds/2.jpg')}
+      />
+      <Text
+        style={{
+          color: colors.textColor,
+          textAlign: 'center',
+          marginVertical: 5,
+        }}>
+        {value}
+      </Text>
+    </View>
+  </TouchableOpacity>
 );
 
 export default ProductCategories;

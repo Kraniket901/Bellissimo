@@ -1,5 +1,5 @@
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
-import React from 'react';
 import { colors } from '../../../constants';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
@@ -13,6 +13,17 @@ interface ProductCardProps {
 }
 
 const ProductCard5: React.FC<ProductCardProps> = ({ item }) => {
+  const [isHeartFilled, setIsHeartFilled] = useState(false);
+  const [isButtonColored, setIsButtonColored] = useState(true);
+
+  const toggleHeartColor = () => {
+    setIsHeartFilled(!isHeartFilled);
+  };
+
+  const toggleButtonColor = () => {
+    setIsButtonColored(!isButtonColored);
+  };
+
   return (
     <View
       style={{
@@ -20,18 +31,11 @@ const ProductCard5: React.FC<ProductCardProps> = ({ item }) => {
         marginHorizontal: 15,
         flexDirection: 'column',
         margin: 10,
-        position:'relative',
+        position: 'relative',
       }}>
-        <AntDesign style={{
-              fontSize: 18,
-              fontWeight:'900',
-              color: colors.secondary,
-              position:'absolute',
-              top:5,
-              right:5,
-              zIndex:1
-            }}
-            name="hearto"/>
+      <TouchableOpacity onPress={toggleHeartColor} style={{ position: 'absolute', top: 5, right: 5, zIndex: 1 }}>
+        <AntDesign name={isHeartFilled ? "heart" : "hearto"} style={{ fontSize: 18, fontWeight: '900', color: isHeartFilled ? 'red' : colors.secondary }} />
+      </TouchableOpacity>
       <Image style={{ width: '100%', height: 120 }} source={require('../../../../assets/backgrounds/2.jpg')} />
       <Text
         style={{
@@ -64,6 +68,7 @@ const ProductCard5: React.FC<ProductCardProps> = ({ item }) => {
           <Text style={{ color: colors.tertiary, fontSize: 12, textDecorationLine: 'line-through' }}>₹{item.originalPrice}</Text>
         </View>
         <TouchableOpacity
+          onPress={toggleButtonColor}
           style={{
             borderColor: colors.primary,
             borderWidth: 1,
@@ -72,13 +77,13 @@ const ProductCard5: React.FC<ProductCardProps> = ({ item }) => {
             justifyContent: 'center',
             alignItems: 'center',
             gap: 5,
+            backgroundColor: isButtonColored ? colors.primary : 'white', // Toggle background color
           }}>
           <Text
             style={{
               fontSize: 12,
-              color: 'white',
+              color: isButtonColored ? 'white' : colors.primary, // Toggle text color
               fontFamily: 'Gilroy-Bold',
-              backgroundColor: colors.primary,
               paddingHorizontal: 10,
               borderRadius: 10,
               paddingVertical: 8,
